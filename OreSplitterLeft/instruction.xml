@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133092510648840331</DateTime>
+  <GameVersion>0.2.3623.17642</GameVersion>
+  <Title>OreSplitterLeft</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>#Ore
+define IronOre 1758427767
+define CopperOre -707307845
+define GoldOre -1348105509
+define Coal 1724793494
+define SiliconOre 1103972403
+define CobaltOre -983091249
+define LeadOre -190236170
+define NickelOre 1830218956
+define SilverOre -916518678
+define UraniumOre -1516581844
+
+alias Valve2L0 d0
+alias Splitter2L0 d1
+alias Valve2L1 d2
+alias Splitter2L1 d3
+alias Valve1R d4
+alias Splitter2L2 d5
+alias HashValue r0
+alias VKE r1
+alias SorterOutput r5
+#Init
+s Valve2L0 On 1 #switches eveything on.
+s Valve2L0 Setting 1 #closes after one element
+s Splitter2L0 On 1
+s Splitter2L0 Mode 0 #default direction
+s Splitter2L0 Setting 0 #deactivate splitting
+s Splitter2L0 SettingOutput 0 #deactivate splitting
+s Valve2L1 On 1
+s Valve2L1 Setting 1
+s Splitter2L1 On 1
+s Splitter2L1 Mode 0
+s Splitter2L1 Setting 0
+s Splitter2L1 SettingOutput 0
+s Valve1R On 1
+s Valve1R Setting 1
+s Splitter2L2 On 1
+s Splitter2L2 Mode 0
+s Splitter2L2 Setting 0
+s Splitter2L2 SettingOutput 0
+
+Main:
+ls HashValue Valve2L0 0 OccupantHash
+#Splitter sort
+seq VKE HashValue GoldOre
+s Splitter2L0 Mode VKE
+sne VKE HashValue 0
+s Valve2L0 Open VKE
+#################### Sorter 1L ##########
+ls HashValue Valve2L1 0 OccupantHash
+#Splitter sort
+seq VKE HashValue IronOre
+s Splitter2L1 Mode VKE
+sne VKE HashValue 0
+s Valve2L1 Open VKE
+#################### Sorter 1R ##########
+ls HashValue Valve1R 0 OccupantHash
+#Splitter sort
+seq VKE HashValue Coal
+s Splitter2L2 Mode VKE
+sne VKE HashValue 0
+s Valve1R Open VKE
+###############################
+sleep 0.1 #sleep for the last sorter
+
+#Backlock safety
+Loop0:
+ls HashValue Splitter2L0 0 OccupantHash
+bne HashValue 0 Loop0
+
+Loop1L:
+ls HashValue Splitter2L1 0 OccupantHash
+bne HashValue 0 Loop1L
+
+Loop1R:
+ls HashValue Splitter2L2 0 OccupantHash
+bne HashValue 0 Loop1R
+j Main</Instructions>
+</InstructionData>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133077464328278502</DateTime>
+  <GameVersion>0.2.3600.17504</GameVersion>
+  <Title>ST_MainFurnaceCntrl</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>alias SelectReceip d0
+alias Start d1
+alias ControlIC d3
+alias Hash db
+alias SelectValue r0
+alias Startcmd r2
+alias HashValue r15
+move HashValue 0
+move SelectValue 0
+s SelectReceip Mode 17
+#Feedback
+alias TankHeating d2
+alias PumpFillingCooling d4
+alias PumpFillingHeating d5
+alias TM r1
+s PumpFillingCooling On 0
+s PumpFillingHeating On 0
+
+Main:
+l TM TankHeating TotalMoles
+sle TM TM 10000
+s PumpFillingHeating On TM
+seq TM TM 0
+s PumpFillingCooling On TM
+
+#normal code
+s Hash Setting HashValue #stores Target Hash
+l Startcmd Start Setting
+s  ControlIC Setting Startcmd
+#Convert value to Hash
+l SelectValue SelectReceip Setting
+mul SelectValue SelectValue 2 #two lines per hash
+add SelectValue SelectValue 1 #start current line +1
+jr SelectValue
+move HashValue 0
+j Main
+move HashValue -404336834 #Copper 1
+j Main
+move HashValue 226410516 #Gold 2
+j Main
+move HashValue -1301215609 #Iron 3
+j Main
+move HashValue 2134647745 #Lead 4
+j Main
+move HashValue -1406385572 #Nickel 5
+j Main
+move HashValue -290196476 #Silicon 6
+j Main
+move HashValue -929742000 #Silver 7
+j Main
+move HashValue 1058547521 #Constantan 8
+j Main
+move HashValue 502280180 #Electrum 9
+j Main
+move HashValue -297990285 #Invar 10
+j Main
+move HashValue -82508479 #Solder 11
+j Main
+move HashValue -654790771 #Steel 12
+j Main
+move HashValue 412924554 #Astroloy 13
+j Main
+move HashValue 1579842814 #Hastelloy 14
+j Main
+move HashValue -787796599 #Inconel 15
+j Main
+move HashValue -1897868623 #Stellite 16
+j Main
+move HashValue 156348098 #Waspaloy 17
+j Main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+j Main #backup :-)</Instructions>
+</InstructionData>

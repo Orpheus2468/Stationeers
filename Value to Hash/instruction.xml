@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133072886151585583</DateTime>
+  <GameVersion>0.2.3600.17504</GameVersion>
+  <Title>Value to Hash</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>define LED 1944485013
+alias SelectReceip d0
+alias Start d1
+alias ControlIC d3
+alias RecipeIC d4
+alias Hash db
+alias SelectValue r0
+alias RecipeHash0 r1
+alias RecipeAmount0 r2
+alias RecipeHash1 r3
+alias RecipeAmount1 r4
+alias RecipeHash2 r5
+alias RecipeAmount2 r6
+alias StartCMD r7
+alias VKE r8
+alias HashValue r15
+move HashValue 0
+move SelectValue 0
+s SelectReceip Mode 17
+Main:
+
+s Hash Setting HashValue #stores Target Hash
+l StartCMD Start Setting
+bdns RecipeIC NoRecipe
+l VKE RecipeIC Setting
+sne VKE 0 VKE
+mul VKE VKE 1
+add VKE VKE 2
+sb LED Color VKE
+beq VKE 4 NoRecipe
+beq StartCMD 0 NoRecipe
+s  RecipeIC Setting 1
+NoRecipe:
+bdns ControlIC NoFurnace
+s ControlIC Setting StartCMD
+NoFurnace:
+#Convert value to Hash
+l SelectValue SelectReceip Setting
+mul SelectValue SelectValue 2 #two lines per hash
+add SelectValue SelectValue 1 #start current line +1
+jr SelectValue
+move HashValue 0
+j Main
+move HashValue -404336834 #Copper 1
+j Main
+move HashValue 226410516 #Gold 2
+j Main
+move HashValue -1301215609 #Iron 3
+j Main
+move HashValue 2134647745 #Lead 4
+j Main
+move HashValue -1406385572 #Nickel 5
+j Main
+move HashValue -290196476 #Silicon 6
+j Main
+move HashValue -929742000 #Silver 7
+j Main
+move HashValue 1058547521 #Constantan 8
+j Main
+move HashValue 502280180 #Electrum 9
+j Main
+move HashValue -297990285 #Invar 10
+j Main
+move HashValue -82508479 #Solder 11
+j Main
+move HashValue -654790771 #Steel 12
+j Main
+move HashValue 412924554 #Astroloy 13
+j Main
+move HashValue 1579842814 #Hastelloy 14
+j Main
+move HashValue -787796599 #Inconel 15
+j Main
+move HashValue -1897868623 #Stellite 16
+j Main
+move HashValue 156348098 #Waspaloy 17
+j Main
+
+j Main
+#Recipe
+SendHash:
+#sb -815193061 Setting 1
+l VKE RecipeIC Setting
+brne VKE 0 -1 #wait until IC is Ready to recive
+s RecipeIC Setting HashValue
+yield
+l VKE RecipeIC Setting
+brne VKE 0 -1
+move RecipeAmount0 3
+s RecipeIC Setting RecipeAmount0
+#sb -815193061 Setting VKE
+yield
+j ra
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+j Main #backup :-)</Instructions>
+</InstructionData>

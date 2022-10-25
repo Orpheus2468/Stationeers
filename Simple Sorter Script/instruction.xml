@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133072886656721805</DateTime>
+  <GameVersion>0.2.3600.17504</GameVersion>
+  <Title>Simple Sorter Script</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>
+#define Sorter -1009150565
+alias Sorter d2
+
+alias
+
+move r4 200
+s Sorter Mode 2
+s Sorter Output -1
+Main:
+
+
+#l r0 db Setting
+s d4 Setting r4
+s d5 Setting r5
+l r1 d0 Setting
+l r5 Sorter Output
+#
+
+ls r0 Sorter 0 OccupantHash
+beq r0 0 Main
+beq r0 r1 Wanted
+#Wanted option 2
+#wanted option 3
+s Sorter Output 0
+j Loop
+
+Wanted:
+ls r3 Sorter 0 Quantity
+sub r4 r4 r3
+move r3 r4
+sle r3 0 r3
+s Sorter Output r3
+
+Loop:
+l r5 Sorter Output
+beq r5 -1 Main
+j Loop
+j Main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+S</Instructions>
+</InstructionData>

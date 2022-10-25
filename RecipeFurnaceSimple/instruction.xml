@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133103359547906397</DateTime>
+  <GameVersion>0.2.3647.17684</GameVersion>
+  <Title>RecipeFurnaceSimple</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>alias MainIC d0
+alias Storage1 d1
+alias Storage2 d2
+alias Sorter d3
+alias VKE r0
+alias HashValue r1
+alias HashAmount r2
+alias RecipeHash0 r3
+alias RecipeAmount0 r4
+alias RecipeHash1 r5
+alias RecipeAmount1 r6
+alias RecipeHash2 r7
+alias RecipeAmount2 r8
+s Storage1 Setting -1
+s Storage2 Setting -1
+s Sorter Mode 2
+s Sorter Output -1
+s db Setting 0
+Main:
+ls HashValue Sorter 0 OccupantHash
+sne VKE HashValue 0
+add VKE VKE -1
+s Sorter Output VKE
+l VKE db Setting
+beq VKE 0 Main
+l HashValue MainIC Setting
+move RecipeHash0 -707307845 #copper ore
+move RecipeAmount0 10
+move RecipeHash1 -1
+move RecipeAmount1 -1
+move RecipeHash2 -1
+move RecipeAmount2 -1
+beq HashValue -404336834 WriteRecipe #Copper 1
+move RecipeHash0 -1348105509 #Gold ore
+beq HashValue 226410516 WriteRecipe #Gold 2
+move RecipeHash0 1758427767 #Iron ore
+beq HashValue -1301215609 WriteRecipe #Iron 3
+move RecipeHash0 -190236170 #Lead ore
+beq HashValue 2134647745 WriteRecipe #Lead 4
+move RecipeHash0 1830218956 #Nickel ore
+beq HashValue -1406385572 WriteRecipe #Nickel 5
+move RecipeHash0 1103972403 #Silicon ore
+beq HashValue -290196476 WriteRecipe #Silicon 6
+move RecipeHash0 -916518678 #Silver ore
+beq HashValue -929742000 WriteRecipe #Silver 7
+move RecipeHash0 -707307845 #copper ore
+move RecipeAmount0 5
+move RecipeHash1 1830218956 #Nickel ore
+move RecipeAmount1 5
+beq HashValue 1058547521 WriteRecipe #Constantan 8
+move RecipeHash0 -1348105509 #Gold ore
+move RecipeHash1 -916518678 #Silver ore
+beq HashValue 502280180 WriteRecipe #Electrum 9
+move RecipeHash0 1758427767 #Iron ore
+move RecipeHash1 1830218956 #Nickel ore
+beq HashValue -297990285 WriteRecipe #Invar 10
+move RecipeHash1 -190236170 #Lead ore
+beq HashValue -82508479 WriteRecipe #Solder 11
+move RecipeAmount0 15
+move RecipeHash1 1724793494 #Coal ore
+beq HashValue -654790771 WriteRecipe #Steel 12
+move RecipeHash0 -707307845 #Copper ore
+move RecipeAmount0 5
+move RecipeHash1 -654790771 #Steel
+move RecipeAmount1 10
+move RecipeHash2 -983091249 #cobald ore
+move RecipeAmount2 5
+beq HashValue 412924554 WriteRecipe #Astroloy 13
+move RecipeHash0 -916518678 #Silver ore
+move RecipeAmount0 10
+move RecipeHash1 1830218956 #Nickel ore
+move RecipeAmount1 5
+beq HashValue 1579842814 WriteRecipe #Hastelloy 14
+move RecipeHash0 -1348105509 #Gold ore
+move RecipeHash2 -654790771 #Steel
+beq HashValue -787796599 WriteRecipe #Inconel 15
+move RecipeHash0 -916518678 #Silver ore
+move RecipeAmount0 5
+move RecipeHash1 1103972403 #Silicon ore
+move RecipeAmount1 10
+move RecipeHash2 -983091249 #cobald ore
+move RecipeAmount2 5
+beq HashValue -1897868623 WriteRecipe #Stellite 16
+move RecipeHash1 1830218956 #Nickel ore
+move RecipeAmount1 5
+move RecipeHash2 -190236170 #Lead ore
+move RecipeAmount2 10
+beq HashValue 156348098 WriteRecipe #Waspaloy 17
+j Main
+WriteRecipe:
+s db Setting RecipeAmount0
+s Storage1 Setting RecipeHash0
+s Storage2 Setting RecipeHash0
+move HashAmount RecipeAmount0
+move HashValue RecipeHash0
+bneal RecipeAmount0 -1 Filter
+s db Setting RecipeAmount1
+s Storage1 Setting RecipeHash1
+s Storage2 Setting RecipeHash1
+move HashAmount RecipeAmount1
+move HashValue RecipeHash1
+bneal RecipeAmount1 -1 Filter
+s db Setting RecipeAmount2
+s Storage1 Setting RecipeHash2
+s Storage2 Setting RecipeHash2
+move HashAmount RecipeAmount2
+move HashValue RecipeHash2
+bneal RecipeAmount2 -1 Filter
+s db Setting 0
+move HashValue 0
+j 0
+Filter:
+ble HashAmount 0 ra
+ls VKE Sorter 0 OccupantHash
+beq VKE 0 Filter
+seq VKE VKE HashValue
+s Sorter Output VKE
+sub HashAmount HashAmount VKE
+Loop:
+l VKE Sorter Output
+beq VKE -1 Filter
+j Loop</Instructions>
+</InstructionData>

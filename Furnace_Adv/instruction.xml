@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133073795070180824</DateTime>
+  <GameVersion>0.2.3600.17504</GameVersion>
+  <Title>Furnace_Adv</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>alias ICMain d0
+alias Furnace d1
+alias StartButton db
+alias PumpFuel d3
+alias PumpCooling d4
+alias Start r0
+alias RefPressure r1
+alias RefTemp r2
+alias RealPressure r3
+alias RealTemp r4
+alias CurrentRecipe r5
+alias VKE2 r8
+alias Temp r9
+alias VKE r10
+alias SelectedRecipe r11
+alias MaxPressure r12
+alias MinPressure r13
+alias MaxTemp r14
+alias MinTemp r15
+s Furnace SettingInput 0
+s Furnace SettingOutput 0
+s PumpFuel Setting 0
+s PumpCooling Setting 0
+s PumpFuel On 1
+s PumpCooling On 1
+move SelectedRecipe -1
+j NothingSelected
+Main:
+l VKE StartButton Setting
+beq VKE 1 GetNewRecipe
+l RealPressure Furnace Pressure
+l RealTemp Furnace Temperature
+l CurrentRecipe Furnace RecipeHash
+#Max Pressure
+sge VKE RealPressure MaxPressure
+mul VKE2 VKE 20
+s Furnace SettingOutput VKE2
+#Max Temp
+seq VKE VKE 0
+sge VKE2 RealTemp MaxTemp
+mul VKE2 VKE2 VKE #Max Pressure reduces Temp
+mul VKE2 VKE2 1
+s PumpCooling Setting VKE2
+#Min Pressure
+sle Temp RealTemp MaxTemp
+sle VKE RealPressure MinPressure
+and Temp VKE Temp
+#Min Temp
+l VKE Furnace Combustion
+seq VKE VKE 0
+s Furnace Activate VKE
+sle VKE RealTemp MinTemp
+or VKE VKE Temp
+mul VKE VKE 1
+s PumpFuel Setting VKE
+or VKE VKE VKE2
+mul VKE VKE 10
+s Furnace SettingInput VKE
+#Finished
+seq VKE CurrentRecipe SelectedRecipe
+s Furnace Open VKE
+j Main
+GetNewRecipe:
+l SelectedRecipe ICMain Setting
+move MaxPressure 39800 #40000-200
+move MinPressure 1000
+move MaxTemp 2000
+move MinTemp 1020 #1000+20
+beq SelectedRecipe -404336834 Main #Copper 1
+beq SelectedRecipe 226410516 Main  #Gold 2
+beq SelectedRecipe -1301215609 Main  #Iron 3
+beq SelectedRecipe 2134647745 Main #Lead 4
+beq SelectedRecipe -1406385572 Main #Nickel 5
+beq SelectedRecipe -290196476 Main #Silicon 6
+beq SelectedRecipe -929742000 Main #Silver 7
+beq SelectedRecipe -654790771 Main #Steel 12
+move MinPressure 20000
+beq SelectedRecipe 1058547521 Main #Constantan 8
+move MinPressure 30000
+beq SelectedRecipe 412924554 Main #Astroloy 13
+move MaxPressure 2200 #2400-200
+move MinPressure 1000
+beq SelectedRecipe 502280180 Main #Electrum 9
+move MaxPressure 23800 #24000-200
+move MinPressure 23500
+beq SelectedRecipe -787796599 Main #Inconel 15
+move MaxPressure 19800 #20000-200
+move MinPressure 10000
+move MinTemp 1820 # 1800+20
+beq SelectedRecipe -1897868623 Main #Stellite 16
+move MinPressure 18000
+move MaxTemp 1500
+move MinTemp 1220 #1200+20
+beq SelectedRecipe -297990285 Main #Invar 10
+move MinPressure 1000
+move MaxTemp 550
+move MinTemp 370 #350+20
+beq SelectedRecipe -82508479 Main #Solder 11
+move MaxPressure 29800 #30000-200
+move MinPressure 25000
+move MaxTemp 1000
+move MinTemp 970 #950+20
+beq SelectedRecipe 1579842814 Main #Hastelloy 14
+move MaxPressure 55000
+move MinPressure 50000
+move MaxTemp 800
+move MinTemp 420 #400+20
+beq SelectedRecipe 156348098 Main #Waspaloy 17 55000 50000 800 400
+NothingSelected:
+move MaxPressure 10
+move MinPressure -1
+move MaxTemp 2000
+move MinTemp -1
+j Main</Instructions>
+</InstructionData>

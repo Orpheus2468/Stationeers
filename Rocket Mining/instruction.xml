@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133061747671276681</DateTime>
+  <GameVersion>0.2.3570.17365</GameVersion>
+  <Title>Rocket Mining</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>define Rocket 1556756312
+define RocketSilo 906210602
+define RocketCmd 554524804
+define RocketTank -505333199
+define MaxCargo 600
+define Mining -2027419821
+define IceMining 74521920
+define Pump -321403609
+define DebugModeSwitch 1220484876
+
+alias Fuellevel r0
+alias FuelDisplay d0
+alias ReturnFuelCostValue r1
+alias ReturnFuelDisplay d1
+alias RocketMode r2
+alias ModeDisplay d2
+alias Cargo r3
+alias SiloDisplay d3
+alias OpenObj r4
+alias CmdRocket r5
+alias DebugMode r9
+alias RocketZugriff2 d4
+alias StartValue r10
+alias RocketTankPressure r11
+alias GoodsAvalible r12
+#Logic Temp Variables
+alias Temp0 r13
+alias Temp1 r14
+alias Temp2 r15
+#init
+move CmdRocket 0
+move StartValue 0
+sb RocketCmd Mode 5 #Setup Dial
+Main: #Main
+#read
+lb Fuellevel Rocket Fuel 0
+lb ReturnFuelCostValue Rocket ReturnFuelCost 0
+lb RocketMode Rocket Mode 0
+lb RocketTankPressure RocketTank Pressure 0
+lb GoodsAvalible Rocket CollectableGoods 0
+lb Cargo RocketSilo Quantity 0
+lb DebugMode DebugModeSwitch Setting 0
+#Display
+s FuelDisplay Setting Fuellevel
+s FuelDisplay Mode 0
+s ReturnFuelDisplay Setting StartValue
+s ModeDisplay Setting RocketMode
+s ModeDisplay Mode 0
+#Mini Display
+sb -815193061 Setting RocketTankPressure
+#Debug Mode #############
+beq DebugMode 0 Automatic
+lb CmdRocket RocketCmd Setting 0 #Dial comman
+Automatic:
+sb Rocket Activate CmdRocket #Send command to Rocket
+
+#display Cargo
+div Cargo Cargo MaxCargo
+s SiloDisplay Setting Cargo
+s SiloDisplay Mode 1
+
+#Refuel
+seq Temp0 RocketMode 0
+sle Temp1 RocketTankPressure 50000
+and Temp0 Temp0 Temp1
+sb Pump On Temp0
+
+#activate Mining
+seq Temp0 RocketMode 4
+seq Temp1 GoodsAvalible 1
+and Temp0 Temp0 Temp1
+sb Mining Activate Temp0
+sb IceMining Activate Temp0
+#Abladen
+seq Temp0 RocketMode 0
+snez Temp1 Cargo
+and Temp0 Temp0 Temp1
+sb RocketSilo Open Temp0
+
+############### Rocket move commands #############
+#start
+seq Temp0 RocketMode 0
+sle Temp1 50000 RocketTankPressure
+seq Temp2 Cargo 0
+and Temp0 Temp0 Temp1
+and Temp0 Temp0 Temp2
+beq Temp0 1 StartRocket
+
+#next mining pos
+seq Temp0 RocketMode 4
+seq Temp1 GoodsAvalible 0
+and Temp0 Temp0 Temp1
+beq Temp0 1 MoveRocket
+
+#come back
+sne Temp0 RocketMode 0
+sle Temp1 Fuellevel 10000
+seq Temp2 Cargo 1 #Cargo in percent
+or Temp1 Temp1 Temp2
+and Temp0 Temp0 Temp1
+beq Temp0 1 ComeBackRocket
+#idle
+move CmdRocket 0
+j Main
+#Rocket start
+StartRocket:
+move CmdRocket 1
+j Main
+#Rocket move
+MoveRocket:
+move CmdRocket 2
+j Main
+#Rocket come home
+ComeBackRocket:
+move CmdRocket 5
+j Main</Instructions>
+</InstructionData>

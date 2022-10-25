@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133094315522282742</DateTime>
+  <GameVersion>0.2.3623.17642</GameVersion>
+  <Title>VendingCheckingCode</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>define IronOre 1758427767
+define CopperOre -707307845
+define GoldOre -1348105509
+define Coal 1724793494
+define SiliconOre 1103972403
+define CobaltOre -983091249
+define LeadOre -190236170
+define NickelOre 1830218956
+define SilverOre -916518678
+define UraniumOre -1516581844
+define SteelIngot -654790771
+
+alias Storage d0
+
+alias VKE r0
+alias LoopCounter r1
+alias HashCode r2
+alias IronOreCounter r3
+
+move IronOreCounter 0
+Main:
+sb -815193061 Setting IronOreCounter
+
+move IronOreCounter 0
+
+move LoopCounter 0
+Loop:
+ls HashCode Storage LoopCounter OccupantHash
+seq VKE HashCode IronOre
+mul VKE VKE 1
+add IronOreCounter IronOreCounter VKE
+
+add LoopCounter LoopCounter 1
+blt LoopCounter 102 Loop
+
+
+
+
+
+
+
+
+
+
+
+j Main</Instructions>
+</InstructionData>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133072911294257254</DateTime>
+  <GameVersion>0.2.3600.17504</GameVersion>
+  <Title>SorterScriptOreIngot</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>#Ingots
+define CopperIngot -404336834 #Copper 1
+define GoldIngot 226410516 #Gold 2
+define IronIngot -1301215609 #Iron 3
+define LeadIngot 2134647745 #Lead 4
+define NickelIngot -1406385572 #Nickel 5
+define SiliconIngot -290196476 #Silicon 6
+define SilverIngot -929742000 #Silver 7
+define ConstantanIngot 1058547521 #Constantan 8
+define ElectrumIngot 502280180 #Electrum 9
+define InvarIngot -297990285 #Invar 10
+define SolderIngot -82508479 #Solder 11
+define SteelIngot -654790771 #Steel 12
+define AstroloyIngot 412924554 #Astroloy 13
+define HastelloyIngot 1579842814 #Hastelloy 14
+define InconelIngot -787796599 #Inconel 15
+define StelliteIngot -1897868623 #Stellite 16
+define WaspaloyIngot 156348098 #Waspaloy 17
+#Ore
+define BiomassOre -831480639
+define Charcoal 252561409
+define Coal 1724793494
+define CobaltOre -983091249
+define CopperOre -707307845
+define GoldOre -1348105509
+define IronOre 1758427767
+define LeadOre -190236170
+define NickelOre 1830218956
+define Reagentmix -1641500434
+define SiliconOre 1103972403
+define SilverOre -916518678
+define UraniumOre -1516581844
+#Ice
+define Water 1217489948
+define Nitrice -1499471529
+define Oxite -1805394113
+define Volatiles 1253102035
+
+alias Sorter d0
+alias HashValue r0
+alias SorterOutput r5
+#Init
+s Sorter Mode 2
+s Sorter Output -1
+Main:
+
+ls HashValue Sorter 0 OccupantHash
+beq HashValue 0 Main
+#User defined code start
+beq HashValue SteelIngot Wanted
+#Wanted option 2
+#Wanted option 3
+#Wanted option n
+#User defined code end
+s Sorter Output 0
+j Loop
+
+Wanted:
+s Sorter Output 1
+
+Loop:
+l SorterOutput Sorter Output
+beq SorterOutput -1 Main
+j Loop
+j Main</Instructions>
+</InstructionData>

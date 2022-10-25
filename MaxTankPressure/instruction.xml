@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133098222332454288</DateTime>
+  <GameVersion>0.2.3647.17684</GameVersion>
+  <Title>MaxTankPressure</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>define TankGasIso 1280378227
+define TankGas -1606848156
+define TankGasSmallIso 272136332
+define TankGasSmall 1013514688
+define IceCrusher 443849486
+define PipeAnalyser 435685051
+define MaxPressure 55000 #kPa
+define Mixer 2104106366
+
+alias VKE r0
+alias VKE2 r1
+alias PressureReal r2
+Main:
+lb PressureReal TankGasIso Pressure Maximum
+sle VKE PressureReal MaxPressure
+or VKE VKE VKE2
+lb PressureReal TankGas Pressure Maximum
+sle VKE PressureReal MaxPressure
+or VKE VKE VKE2
+lb PressureReal TankGasSmallIso Pressure Maximum
+sle VKE PressureReal MaxPressure
+or VKE VKE VKE2
+lb PressureReal TankGasSmall Pressure Maximum
+sle VKE PressureReal MaxPressure
+or VKE VKE VKE2
+
+
+#lb PressureReal PipeAnalyser Pressure Maximum
+#sle VKE2 PressureReal MaxPressure
+#and VKE VKE VKE2
+sb IceCrusher On VKE
+
+#sb Mixer On VKE
+
+j Main</Instructions>
+</InstructionData>

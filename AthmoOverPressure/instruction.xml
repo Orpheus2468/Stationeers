@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133110131030719231</DateTime>
+  <GameVersion>0.2.3647.17684</GameVersion>
+  <Title>AthmoOverPressure</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>define MaxPressure 39000 #kph
+
+alias Analyser1 d0
+alias Analyser2 d1
+alias Device db
+
+alias VKE r0
+alias VKE2 r1
+
+Main:
+l VKE Analyser1 Pressure
+sle VKE VKE MaxPressure
+l VKE2 Analyser2 Pressure
+sle VKE2 VKE2 MaxPressure
+and VKE VKE VKE2
+sb Device On VKE
+
+j Main</Instructions>
+</InstructionData>

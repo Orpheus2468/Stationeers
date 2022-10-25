@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133105192459729141</DateTime>
+  <GameVersion>0.2.3647.17684</GameVersion>
+  <Title>CentrifugeCntrl</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>define Centrifuge 1238905683
+alias VKE r0
+alias VKE2 r1
+alias RPM r2
+alias StressReal r3
+alias OutputCount r4
+alias OutputCountZ1 r5
+Init:
+s db ClearMemory 1
+Main:
+s db Throttle 0
+s db CombustionLimiter 0
+
+s db Open 1
+l OutputCountZ1 db ExportCount
+yield
+yield
+yield
+yield
+l OutputCount db ExportCount
+sub VKE OutputCount OutputCountZ1
+seq VKE VKE 0
+l RPM db Rpm
+sle VKE2 RPM 1
+and VKE VKE VKE2
+l StressReal db Stress
+seq VKE2 StressReal 0
+and VKE VKE VKE2
+beq VKE 1 Start
+
+j Main
+
+Start:
+s db Open 0
+s db ClearMemory 1
+l StressReal db Stress
+sle VKE StressReal 90
+mul VKE VKE 10
+s db Throttle VKE
+yield
+l VKE db Stress
+sub VKE VKE StressReal
+slt VKE VKE 0
+l RPM db Rpm
+sge VKE2 RPM 100
+and VKE VKE VKE2
+beq VKE 1 Speed
+bgt StressReal 95 Main
+j Start
+
+Speed:
+s db Throttle 100
+l StressReal db Stress
+sle VKE StressReal 1
+mul VKE VKE 100
+s db CombustionLimiter VKE
+beq VKE 100 Running
+bgt StressReal 95 Main
+j Speed
+
+Running:
+l VKE db ImportCount
+sge VKE VKE 601
+lb VKE2 Centrifuge Throttle Minimum
+seq VKE2 VKE2 100
+and VKE VKE VKE2
+beq VKE 1 Main
+
+l VKE db Stress
+bge VKE 95 Main
+j Running</Instructions>
+</InstructionData>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133101673103792725</DateTime>
+  <GameVersion>0.2.3647.17684</GameVersion>
+  <Title>GeneralStorageOutput</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>alias NextStorage d0
+alias StorageV1 d1
+alias StorageV2 d2
+alias StorageV3 d3
+alias StorageV4 d4
+alias StorageV5 d5
+alias VKE r0
+alias HashValue r1
+alias HashAmount r2
+alias RecipeHash0 r3
+alias RecipeAmount0 r4
+alias RecipeHash1 r5
+alias RecipeAmount1 r6
+alias RecipeHash2 r7
+alias RecipeAmount2 r8
+alias RecipeValue r9
+alias RecipeAmount r10
+s db Setting 0
+Init:
+move RecipeHash0 -1
+move RecipeAmount0 -1
+move RecipeHash1 -1
+move RecipeAmount1 -1
+move RecipeHash2 -1
+move RecipeAmount2 -1
+Main:
+move RecipeValue RecipeHash0
+move RecipeAmount RecipeAmount0
+jal CheckStorage
+move RecipeHash0 RecipeValue
+move RecipeAmount0 RecipeAmount
+move RecipeValue RecipeHash1
+move RecipeAmount RecipeAmount1
+jal CheckStorage
+move RecipeHash1 RecipeValue
+move RecipeAmount1 RecipeAmount
+move RecipeValue RecipeHash2
+move RecipeAmount RecipeAmount2
+jal CheckStorage
+move RecipeHash2 RecipeValue
+move RecipeAmount2 RecipeAmount
+bne RecipeHash0 -1 WriteRecipe
+bne RecipeHash1 -1 WriteRecipe
+bne RecipeHash2 -1 WriteRecipe
+l VKE db Setting
+bne VKE 0 ReadHash
+j Main
+ReadHash:
+move RecipeHash0 VKE
+s db Setting 0
+l RecipeAmount0 db Setting
+breq RecipeAmount0 0 -1
+s db Setting 0
+l RecipeHash1 db Setting
+breq RecipeHash1 0 -1
+s db Setting 0
+l RecipeAmount1 db Setting
+breq RecipeAmount1 0 -1
+s db Setting 0
+l RecipeHash2 db Setting
+breq RecipeHash2 0 -1
+s db Setting 0
+l RecipeAmount2 db Setting
+breq RecipeAmount2 0 -1
+s db Setting 0
+j Main
+WriteRecipe:
+bdns NextStorage Init
+l VKE NextStorage Setting
+brne VKE 0 -1
+s NextStorage Setting RecipeHash0
+l VKE NextStorage Setting
+brne VKE 0 -1
+s NextStorage Setting RecipeAmount0
+l VKE NextStorage Setting
+brne VKE 0 -1
+s NextStorage Setting RecipeHash1
+l VKE NextStorage Setting
+brne VKE 0 -1
+s NextStorage Setting RecipeAmount1
+l VKE NextStorage Setting
+brne VKE 0 -1
+s NextStorage Setting RecipeHash2
+l VKE NextStorage Setting
+brne VKE 0 -1
+s NextStorage Setting RecipeAmount2
+j Init
+CheckStorage:
+s StorageV1 Setting 1
+ls HashValue StorageV1 0 OccupantHash
+seq VKE HashValue RecipeValue
+s StorageV1 Open VKE
+beq VKE 1 Count
+s StorageV2 Setting 1
+ls HashValue StorageV2 0 OccupantHash
+seq VKE HashValue RecipeValue
+s StorageV2 Open VKE
+beq VKE 1 Count
+s StorageV3 Setting 1
+ls HashValue StorageV3 0 OccupantHash
+seq VKE HashValue RecipeValue
+s StorageV3 Open VKE
+beq VKE 1 Count
+s StorageV4 Setting 1
+ls HashValue StorageV4 0 OccupantHash
+seq VKE HashValue RecipeValue
+s StorageV4 Open VKE
+beq VKE 1 Count
+s StorageV5 Setting 1
+ls HashValue StorageV5 0 OccupantHash
+seq VKE HashValue RecipeValue
+s StorageV5 Open VKE
+beq VKE 1 Count
+j ra
+Count:
+yield
+sub RecipeAmount RecipeAmount 1
+bgt RecipeAmount 0 CheckStorage
+move RecipeValue -1
+move RecipeAmount -1
+j ra</Instructions>
+</InstructionData>

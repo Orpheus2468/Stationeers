@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133091855471622518</DateTime>
+  <GameVersion>0.2.3623.17642</GameVersion>
+  <Title>OreSorterStep2</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>#Ore
+define IronOre 1758427767
+define CopperOre -707307845
+define GoldOre -1348105509
+define Coal 1724793494
+define SiliconOre 1103972403
+define CobaltOre -983091249
+define LeadOre -190236170
+define NickelOre 1830218956
+define SilverOre -916518678
+define UraniumOre -1516581844
+
+alias Sorter2L0 d0
+alias Sorter2L1 d1
+alias Sorter2L2 d2
+alias Sorter2R0 d3
+alias Sorter2R1 d4
+alias Sorter2R2 d5
+alias HashValue r0
+alias SorterOutput r5
+#Init
+s Sorter2L0 Mode 2 #Output Left: IronOre CopperOre
+s Sorter2L0 Output -1 #Output Right: GoldOre
+s Sorter2L1 Mode 2 #Output Left: IronOre
+s Sorter2L1 Output -1 #Output Right: CopperOre
+s Sorter2L2 Mode 2 #Output Left: Coal
+s Sorter2L2 Output -1 #Output Right: SiliconOre
+s Sorter2R0 Mode 2 #Output Left: CobaltOre LeadOre
+s Sorter2R0 Output -1 #Output Right: NickelOre
+s Sorter2R1 Mode 2 #Output Left: CobaltOre
+s Sorter2R1 Output -1 #Output Right: LeadOre
+s Sorter2R2 Mode 2 #Output Left: SilverOre
+s Sorter2R2 Output -1 #Output Right: UraniumOre
+Main:
+Sorter2L0Start:
+ls HashValue Sorter2L0 0 OccupantHash
+beq HashValue 0 Sorter2L1Start
+seq SorterOutput HashValue GoldOre
+s Sorter2L0 Output SorterOutput
+Sorter2L1Start:
+ls HashValue Sorter2L1 0 OccupantHash
+beq HashValue 0 Sorter2L2Start
+seq SorterOutput HashValue CopperOre
+s Sorter2L1 Output SorterOutput
+Sorter2L2Start:
+ls HashValue Sorter2L2 0 OccupantHash
+beq HashValue 0 Sorter2R0Start
+seq SorterOutput HashValue SiliconOre
+s Sorter2L2 Output SorterOutput
+Sorter2R0Start:
+ls HashValue Sorter2R0 0 OccupantHash
+beq HashValue 0 Sorter2R1Start
+seq SorterOutput HashValue NickelOre
+s Sorter2R0 Output SorterOutput
+Sorter2R1Start:
+ls HashValue Sorter2R1 0 OccupantHash
+beq HashValue 0 Sorter2R2Start
+seq SorterOutput HashValue LeadOre
+s Sorter2R1 Output SorterOutput
+Sorter2R2Start:
+ls HashValue Sorter2R2 0 OccupantHash
+beq HashValue 0 Loop2L0
+seq SorterOutput HashValue UraniumOre
+s Sorter2R2 Output SorterOutput
+
+Loop2L0:
+l SorterOutput Sorter2L0 Output
+beq SorterOutput -1 Loop2L1
+j Loop2L0
+Loop2L1:
+l SorterOutput Sorter2L1 Output
+beq SorterOutput -1 Loop2L2
+j Loop2L1
+Loop2L2:
+l SorterOutput Sorter2L2 Output
+beq SorterOutput -1 Loop2R0
+j Loop2L2
+Loop2R0:
+l SorterOutput Sorter2L0 Output
+beq SorterOutput -1 Loop2R1
+j Loop2R0:
+Loop2R1:
+l SorterOutput Sorter2R1 Output
+beq SorterOutput -1 Loop2R2
+j Loop2R2
+Loop2R2:
+l SorterOutput Sorter2R2 Output
+beq SorterOutput -1 Main
+j Loop2R2</Instructions>
+</InstructionData>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133092514867564610</DateTime>
+  <GameVersion>0.2.3623.17642</GameVersion>
+  <Title>OreSplitterRight</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>#Ore
+define IronOre 1758427767
+define CopperOre -707307845
+define GoldOre -1348105509
+define Coal 1724793494
+define SiliconOre 1103972403
+define CobaltOre -983091249
+define LeadOre -190236170
+define NickelOre 1830218956
+define SilverOre -916518678
+define UraniumOre -1516581844
+
+alias Valve2R0 d0
+alias Splitter2R0 d1
+alias Valve2R1 d2
+alias Splitter2R1 d3
+alias Valve2R2 d4
+alias Splitter2R2 d5
+alias HashValue r0
+alias VKE r1
+alias SorterOutput r5
+
+#Init
+s Valve2R0 On 1 #switches eveything on.
+s Valve2R0 Setting 1  #closes after one element
+s Splitter2R0 On 1
+s Splitter2R0 Mode 0 #default direction
+s Splitter2R0 Setting 0  #deactivate splitting
+s Splitter2R0 SettingOutput 0 #deactivate splitting
+s Valve2R1 On 1
+s Valve2R1 Setting 1
+s Splitter2R1 On 1
+s Splitter2R1 Mode 0
+s Splitter2R1 Setting 0
+s Splitter2R1 SettingOutput 0
+s Valve2R2 On 1
+s Valve2R2 Setting 1
+s Splitter2R2 On 1
+s Splitter2R2 Mode 0
+s Splitter2R2 Setting 0
+s Splitter2R2 SettingOutput 0
+
+Main:
+ls HashValue Valve2R0 0 OccupantHash
+#Splitter sort
+seq VKE HashValue NickelOre
+s Splitter2R0 Mode VKE
+sne VKE HashValue 0
+s Valve2R0 Open VKE
+#################### Sorter 1L ##########
+ls HashValue Valve2R1 0 OccupantHash
+#Splitter sort
+seq VKE HashValue LeadOre
+s Splitter2R1 Mode VKE
+sne VKE HashValue 0
+s Valve2R1 Open VKE
+#################### Sorter 1R ##########
+ls HashValue Valve2R2 0 OccupantHash
+#Splitter sort
+seq VKE HashValue UraniumOre
+s Splitter2R2 Mode VKE
+sne VKE HashValue 0
+s Valve2R2 Open VKE
+###############################
+sleep 0.1 #sleep for the last sorter
+
+#Backlock safety
+Loop0:
+ls HashValue Splitter2R0 0 OccupantHash
+bne HashValue 0 Loop0
+
+Loop1L:
+ls HashValue Splitter2R1 0 OccupantHash
+bne HashValue 0 Loop1L
+
+Loop1R:
+ls HashValue Splitter2R2 0 OccupantHash
+bne HashValue 0 Loop1R
+j Main</Instructions>
+</InstructionData>

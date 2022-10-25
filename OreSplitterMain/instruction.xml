@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstructionData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <DateTime>133092183654141258</DateTime>
+  <GameVersion>0.2.3623.17642</GameVersion>
+  <Title>OreSplitterMain</Title>
+  <Description>​</Description>
+  <Author>Orpheus2468</Author>
+  <WorkshopFileHandle>0</WorkshopFileHandle>
+  <Instructions>#Ore
+define IronOre 1758427767
+define CopperOre -707307845
+define GoldOre -1348105509
+define Coal 1724793494
+define SiliconOre 1103972403
+define CobaltOre -983091249
+define LeadOre -190236170
+define NickelOre 1830218956
+define SilverOre -916518678
+define UraniumOre -1516581844
+
+alias Valve0 d0
+alias Splitter0 d1
+alias Valve1L d2
+alias Splitter1L d3
+alias Valve1R d4
+alias Splitter1R d5
+alias HashValue r0
+alias VKE r1
+alias Sorting0 r2
+alias Sorting1L r3
+alias Sorting1R r4
+alias SorterOutput r5
+#Init
+s Valve0 On 1 #switches eveything on
+s Valve0 Setting 1 #closes after one element
+s Splitter0 On 1
+s Splitter0 Mode 0 #default direction
+s Splitter0 Setting 0  #deactivate splitting
+s Splitter0 SettingOutput 0  #deactivate splitting
+s Valve1L On 1
+s Valve1L Setting 1
+s Splitter1L On 1
+s Splitter1L Mode 0
+s Splitter1L Setting 0
+s Splitter1L SettingOutput 0
+s Valve1R On 1
+s Valve1R Setting 1
+s Splitter1R On 1
+s Splitter1R Mode 0
+s Splitter1R Setting 0
+s Splitter1R SettingOutput 0
+
+Main:
+#################### Sorter 0 ##########
+ls HashValue Valve0 0 OccupantHash
+#Splitter sort
+move VKE 1  #if any of the follwing matches VKE=1
+beq HashValue IronOre Wanted0
+beq HashValue CopperOre Wanted0
+beq HashValue GoldOre Wanted0
+beq HashValue Coal Wanted0
+beq HashValue SiliconOre Wanted0
+move VKE 0 #Else no match found
+Wanted0:
+s Splitter0 Mode VKE #set splitter's direction
+sne Sorting0 HashValue 0
+s Valve0 Open Sorting0 #opens valve for anything
+#################### Sorter 1L ##########
+ls HashValue Valve1L 0 OccupantHash
+#Splitter sort
+move VKE 1
+beq HashValue IronOre Wanted1L
+beq HashValue CopperOre Wanted1L
+beq HashValue GoldOre Wanted1L
+move VKE 0
+Wanted1L:
+s Splitter1L Mode VKE
+l SplitterQuantity1L Splitter1L Quantity
+sne Sorting1L HashValue 0
+s Valve1L Open Sorting1L
+#################### Sorter 1R ##########
+ls HashValue Valve1R 0 OccupantHash
+#Splitter sort
+move VKE 1
+beq HashValue SilverOre Wanted1R
+beq HashValue UraniumOre Wanted1R
+move VKE 0
+Wanted1R:
+s Splitter1R Mode VKE
+l SplitterQuantity1R Splitter1R Quantity
+sne Sorting1R HashValue 0
+s Valve1R Open Sorting1R
+######################
+sleep 0.1  #delay for last Sorter
+#Backlock Safetycode
+Loop0:
+ls HashValue Splitter0 0 OccupantHash
+bne HashValue 0 Loop0
+
+Loop1L:
+ls HashValue Splitter1L 0 OccupantHash
+bne HashValue 0 Loop1L
+
+Loop1R:
+ls HashValue Splitter1R 0 OccupantHash
+bne HashValue 0 Loop1R
+j Main</Instructions>
+</InstructionData>
